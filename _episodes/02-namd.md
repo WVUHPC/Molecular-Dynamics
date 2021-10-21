@@ -22,7 +22,7 @@ In the NAMD tutorial, you are instructed on creating a system of ubiquitin in wa
 Open VMD and load `ubq_wb.psf` and `ubq_wb.pdb` by going to File>New Molecule. You should see something similar to the image below:
 
 ![A figure showing the initial coordinates of ubiqitin in a water box.](../fig/starting_namd.png | width=300)
-
+![](https://gyazo.com/eb5c5741b6a9a16c692170a41a49c858.png | width=100)
 I changed the representation for the protein to New Cartoon so that it is more visible.
 
 In the `1-3-box` directory, there is a NAMD configuration file, `ubq_wb_eq.conf`, that is set to run an equilibration of ubiquitin in water. This is the .conf that we will be running on Thorny Flat.
