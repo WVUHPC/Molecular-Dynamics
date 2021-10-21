@@ -5,7 +5,7 @@ exercises: 0
 questions:
 - "How do I transfer my files to the HPC?"
 - "How do I run NAMD on the cluster?"
-- "How do I check if my job has failed?
+- "How do I check if my job has failed?"
 objectives:
 - "Learn how to tranfer files"
 - "Learn which queues to use"
