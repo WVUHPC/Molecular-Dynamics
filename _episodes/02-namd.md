@@ -21,7 +21,7 @@ In the NAMD tutorial, you are instructed on creating a system of ubiquitin in wa
 
 Open VMD and load `ubq_wb.psf` and `ubq_wb.pdb` by going to File>New Molecule. You should see something similar to the image below:
 
-![A figure showing the initial coordinates of ubiqitin in a water box.](../fig/starting_namd.png, width=300)
+![A figure showing the initial coordinates of ubiqitin in a water box.](../fig/starting_namd.png | width=300)
 
 I changed the representation for the protein to New Cartoon so that it is more visible.
 
