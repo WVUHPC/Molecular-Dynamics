@@ -21,7 +21,7 @@ In the NAMD tutorial, you are instructed on creating a system of ubiquitin in wa
 
 Open VMD and load `ubq_wb.psf` and `ubq_wb.pdb` by going to File>New Molecule. You should see something similar to the image below:
 
-![A figure showing the initial coordinates of ubiqitin in a water box.](../fig/starting_namd.png)
+![A figure showing the initial coordinates of ubiqitin in a water box.](../fig/starting_namd.png, width=300)
 
 I changed the representation for the protein to New Cartoon so that it is more visible.
 
@@ -29,8 +29,13 @@ In the `1-3-box` directory, there is a NAMD configuration file, `ubq_wb_eq.conf`
 
 ## Transferring files to the HPC
 
+The best way to go about transferring files to the HPC is by using Globus Connect, a service we pay for to transfer files around WVU. There is a wonderful GUI that we can use to access the filesystem on Thorny Flat, and send the necessary files to run the simulation.
 
+Navigate to the [Globus homepage](https://www.globus.org/) and log in with your wvu credentials. This should direct you to the File Manager where the file transferring is done. 
 
+![First view of the Globus File Manager](../fig/globus_file_intro.png)
+
+For Globus to see the files on your computer, download [Globus Connect Personal](https://www.globus.org/globus-connect-personal) for your OS. There will be instructions to set up your computer as a Globus Endpoint.
 
 
 ## Connecting to the cluster
