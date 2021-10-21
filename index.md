@@ -22,6 +22,8 @@ In the lessons, there is an introduction to the concept of MD simulation, follow
 > Gromacs: 
 > 
 > Amber: 
+> 
+> Each lesson will also have assciated tutorial files, the details of which will be given in the particular lesson.
 {: .prereq}
 
 {% include links.md %}
