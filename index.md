@@ -12,18 +12,9 @@ In the lessons, there is an introduction to the concept of MD simulation, follow
 {% comment %} This is a comment in Liquid {% endcomment %}
 
 > ## Prerequisites
->
-> The prerequisites for this course are to have downloaded VMD (Visual Molecular Dynamics) at the link here: https://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=VMD
 > 
-> Additionally, any software that you are interested in running on the cluster would be best to install locally on your computer for running pieces of the tutorial that are shorter but this is not absolutely necessary as the steps can be completed on the cluster.
+> There are no prerequisites for this course, however it will be very beneficial to go through the tutorials of the engine you're using: [NAMD}(http://www.ks.uiuc.edu/Training/Tutorials/#namd), [GROMACS](), and [AMBER]().
 > 
-> NAMD: https://www.ks.uiuc.edu/Development/Download/download.cgi?PackageName=NAMD
-> 
-> Gromacs: 
-> 
-> Amber: 
-> 
-> Each lesson will also have assciated tutorial files, the details of which will be given in the particular lesson.
 {: .prereq}
 
 {% include links.md %}
