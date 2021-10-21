@@ -29,6 +29,10 @@ In the `1-3-box` directory, there is a NAMD configuration file, `ubq_wb_eq.conf`
 
 ## Transferring files to the HPC
 
+
+
+
+
 ## Connecting to the cluster
 
 ## Moving around with the command line
