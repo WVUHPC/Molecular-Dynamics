@@ -9,9 +9,6 @@ objectives:
 keypoints:
 - "First key point. Brief Answer to questions. (FIXME)"
 ---
-FIXME
-
-{% include links.md %}
 
 ## Introduction to Molecular Dynamcis 
 There is not enough time to teach all or really any of the complex topics of molecular dynamics, and this tutorial is not focused on the theory of MD. Rather, this tutorial is aimed toward using HPC resources to run MD simulation. Molecular Dynamics is a classical dynamics approach to molecular simulation, which for systems of many atoms the assumption is valid. All MD simulations need a set of initial conditions, in most cases this is the starting positions of the atoms. This begin said if **The starting structure is garbage ,the simulation will continue using the bad stutruce giving poor results.**  It is important to become well versed in your system and take time to make sure everything looks good. 
@@ -43,3 +40,6 @@ Simulations need a set of assumption inorder to dictate the atoms behavior
 # The history Of the Codes
 
 ## NAMD 
+
+{% include links.md %}
+
