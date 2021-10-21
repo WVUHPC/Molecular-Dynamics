@@ -41,19 +41,64 @@ Once complete, there will be an endpoint listed under your collections with the 
 
 ![The "Cable" endpoint made in Globus.](../fig/globus_endpoint.png)
 
+Select it and the files locally available files will appear. Now, select the other side of the File Manager and search for: `wvu#thornydtn`. This is the name of the endpoint that will allow us to access Thorny Flat.
 
+![Both endpoints selected.](../fig/globus_ready.png)
 
+Navigate to to the directory containing the `namd_tutorial_files` directory in the File Manager and select the `namd_tutorial_files` directory so it is highlighter blue. Next, on the `wvu#thornydtn` side, enter the scratch directory and then the directory bearing your wvu username.
+
+![Both endpoints ready.](../fig/globus_transfer.png)
+
+Press the blue `start` button on the left to transfer the files to your scratch directory on Thorny Flat.
 
 ## Connecting to the cluster
 
+Open OnDemand is an excellent user-friendly way to communicate with the cluster if you don't have a locally installed terminal.
+
+Navigate to the [Thorny Flat OnDemand](https://ondemand-tf.hpc.wvu.edu/) page and from the drop-down menus at the top select Clusters>Thorny Flat Shell Access. This will open a shell that can be used to talk to the cluster.
+
+![Connecting to Open OnDemand for shell access.](../fig/ood_shell.png)
+
 ## Moving around with the command line
 
+Welcome to a command line interface (CLI)! This simple looking tool is capable of running some very powerful, diverse commands, however, you need only a few of them to submit a job to the HPC. 
+
+The first command to use is `cd` to *change directory* from one to another. This is akin to double-clicking a folder on Windows or Mac. 
+
+You want to use `cd` to move to the directory you transferred over with Globus. To do that, execute:
+
+~~~
+$ cd $SCRATCH
+~~~
+{: .language-bash}
+
+Shell commands seen here and online often have the leading `$`. You don't need to type these in; they're only there to show that this is a shell command. Press enter to execute the command. The shell won't output anything, but you should see a change in the line the cursor is on now. The `~` that was there in the previous line has become your username. All that symbol does is represent your current directory. Execute the following command to get a better look at where you are:
+
+~~~
+$ pwd
+~~~
+{: .language-bash}
+
+~~~
+/scratch/ncf0003/
+~~~
+{: .output}
+
+This command prints the full path of where you presently are. Similar to C:\Users\ncf0003\Documents on Windows.
+
+Now, to see the contents of the directory, execute the command: `ls`.
+
+~~~
+cpH_state1  epha2  files_to_purge.txt  n17  namd-tutorial-files  replica_stuff  replica_test  rnase_topology  smd  westpa
+~~~
+{: .output}
+
+This will output all files and directories contained in the directory. 
 ## Making a pbs script and submitting a job
 
 ## Checking jobs, benchmarking, and output files
 
 ## Visualizing and quick analysis of the trajectory
 
-lkhjkl
 
 {% include links.md %}
