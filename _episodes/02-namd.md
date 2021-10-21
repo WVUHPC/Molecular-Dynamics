@@ -21,7 +21,7 @@ In the NAMD tutorial, you are instructed on creating a system of ubiquitin in wa
 
 Open VMD and load `ubq_wb.psf` and `ubq_wb.pdb` by going to File>New Molecule. You should see something similar to the image below:
 
-![A figure showing the initial coordinates of ubiqitin in a water box.](../fig/starting_namd.png | width=100)
+![A figure showing the initial coordinates of ubiqitin in a water box.](../fig/starting_namd.png)
 
 I changed the representation for the protein to New Cartoon so that it is more visible.
 
@@ -36,6 +36,12 @@ Navigate to the [Globus homepage](https://www.globus.org/) and log in with your 
 ![First view of the Globus File Manager](../fig/globus_file_intro.png)
 
 For Globus to see the files on your computer, download [Globus Connect Personal](https://www.globus.org/globus-connect-personal) for your OS. There will be instructions to set up your computer as a Globus Endpoint.
+
+Once complete, there will be an endpoint listed under your collections with the name provided for it:
+
+![The "Cable" endpoint made in Globus.](../fig/globus_endpoint.png)
+
+
 
 
 ## Connecting to the cluster
