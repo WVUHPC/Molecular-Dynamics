@@ -1,5 +1,5 @@
 ---
-title: "Introduction: History, basics and overview of major codes."
+title: "Using Amber on WVU HPC resources"
 teaching: 0
 exercises: 0
 questions:
