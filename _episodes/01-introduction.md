@@ -1,15 +1,15 @@
 ---
-title: "Introduction: History, basics and overview of major codes."
-teaching: 0
+title: "Introduction: Basic introduction to MD"
+teaching: 15
 exercises: 0
 questions:
-- "Key question (FIXME)"
+- "What is Molecular-Dynamics ?"
 objectives:
-- "First learning objective. (FIXME)"
+- "Gain a basic understanding of Molcualr dyanmics "
 keypoints:
-- "First key point. Brief Answer to questions. (FIXME)"
+- "bad systems into the engeine give bad data out"
+- "For every step of the system the total ponteial energy is found that is the sum of the forces on each atom"
 ---
-FIXME
 
 {% include links.md %}
 
@@ -40,6 +40,3 @@ Simulations need a set of assumption inorder to dictate the atoms behavior
 - Canonical ensemble (NVT):  constant number of atoms , constant volume and constant temperature. This type of simulation allows the system density to be uniform.
 -  Isothermal–isobaric ensemble (NTP):  constant number of atoms , constant volume and constant temperature. These condition are the conditions that often relate the most to laboratory conditions 
 
-# The history Of the Codes
-
-## NAMD 
