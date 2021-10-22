@@ -303,11 +303,11 @@ Conventionally, people use nanoseconds (ns) per day to estimate the best efficie
 
 To actually produce a curve for benchmarking, you would need to run your job with different numbers of nodes (usually 1, 2, 4, and 8). The plot below is an example of a typical benchmarking curve:
 
-![A typical benchmarking plot in ns/day](../fig/bench_scaling.png)
+![A typical benchmarking plot in ns/day](../fig/bench_scaling.PNG)
 
 The red line represents perfect scaling based on the simulation using only one node. From there you can see that the actual number of ns/day achieved by the cluster is less than perfect; this is inherent in how the computer functions. This can be plotted another way by looking at how close the simulation is to achieving perfect scaling:
 
-![Plot of scaling efficieny](../fig/bench_eff.png)
+![Plot of scaling efficieny](../fig/bench_eff.PNG)
 
 Now, with efficieny on the y-axis, perfect scaling becomes a horizontal line at 100% and you can see how well each number of nodes is performing. Generally, you want ~70% efficieny so you could use 4 nodes in this little example.
 
