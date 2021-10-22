@@ -72,7 +72,8 @@ $ cd $SCRATCH
 ~~~
 {: .language-bash}
 
-Shell commands seen here and online often have the leading `$`. You don't need to type these in; they're only there to show that this is a shell command. Press enter to execute the command. The shell won't output anything, but you should see a change in the line the cursor is on now. The `~` that was there in the previous line has become your username; this represents your current directory. Execute the following command to get a better look at where you are:
+Shell commands seen here and online often have the leading `$`. You don't need to type these in; they're only there to show that this is a shell command. Press enter to execute the command. The shell won't output anything, but you should see a change in the line the cursor is on now. The `~` that was there in the previous line has become your username; this represents your current directory. 
+Also the `$SCRATCH` in the command is a variable that represents the pathway to your scrach directory. Execute the following command to get a better look at where you are:
 
 ~~~
 $ pwd
@@ -113,26 +114,99 @@ $ nano pbs.sh
 ~~~
 {: .language-bash}
 
-The `nano` command makes a new file with the name you gave it, in this case, pbs.sh. It also opens a new window that is mostly blank with commands at the bottom. This is a text editor; think of it like notepad. 
+The `nano` command makes a new file with the name you gave it, in this case, pbs.sh. It also opens a new window that is mostly blank with commands at the bottom. This is a text editor; think of it like notepad. You should be able to copy-paste the text fromthe box below into the Open OnDemand window.
 
 ~~~
 #!/bin/bash
-#PBS -q standby             # queue you're submitting to
-#PBS -m ae                  # sends an email when a job ends or has an error
-#PBS -M ncf0003@mix.wvu.edu # your email
-#PBS -N ubq_wb_eq           # name of your job; use whatever you'll recognize
-#PBS -l nodes=1:ppn=40      # resources being requested; change "node=" to request more nodes
-#PBS -l walltime=10:00      # this dictates how long your job can run on the cluster; 7:00:00:00 would be 7 days
+#PBS -q standby                # queue you're submitting to
+#PBS -m ae                     # sends an email when a job ends or has an error
+#PBS -M ncf0003@mix.wvu.edu    # your email
+#PBS -N ubq_wb_eq              # name of your job; use whatever you'll recognize
+#PBS -l nodes=1:ppn=40         # resources being requested; change "node=" to request more nodes
+#PBS -l walltime=10:00         # this dictates how long your job can run on the cluster; 7:00:00:00 would be 7 days
 
+
+# Load the necessary modules to run namd
 module load lang/intel/2018 libs/fftw/3.3.9_intel18 parallel/openmpi/3.1.4_intel18_tm
 
-cd $PBS_O_WORKDIR
+# Move to the directory you submitted the job from
+cd $PBS_O_WORKDIR              
 
+# Pathway to the namd2 code
 MD_NAMD=/scratch/jbmertz/binaries/NAMD_2.14_Source/Linux-x86_64-icc-smp/
 
+# actual call to run namd
 mpirun --map-by ppr:2:node ${MD_NAMD}namd2 +setcpuaffinity +ppn$(($PBS_NUM_PPN/2-1)) ubq_wb_eq.conf > ubq_wb_eq.log
 ~~~
 {: .language-bash}
+
+The top block of block of commands that begin with `#PBS` are specifying how you'd like to run your job on the cluster; you can see a brief description of what they do later in each line. Lets skip the `-q` line for now and talk about the rest of the `#PBS` lines. The `-m` and `-M` lines are about emailing you confirmation of different things happening to your job; they can be omitted if you would not like to be emailed. `-N` specifies a name for your job; it will appear when you check your job later on to see its progress. There are two lines of `-l` that inform the HPC how many compute nodes you need and for how long; these can be restricted by the queue you are trying to use in the first line.
+
+#### Queues
+
+There are severa different queues on the HPC and their names aren't misnomers; they are lines that your job will wait in for computing time. It can be a little bit of a balancing act to determine which queue will let you use enough resources for enough time while not having to wait too long. First, to see the queues of Thorny Flat, execute:
+
+~~~
+$ qstat -q
+~~~
+{: .language-bash}
+
+~~~
+server: trcis002.hpc.wvu.edu
+Queue            Memory CPU Time Walltime Node  Run Que Lm  State
+---------------- ------ -------- -------- ----  --- --- --  -----
+standby            --      --    04:00:00   --   15 136 --   E R
+comm_small_week    --      --    168:00:0   --   28 202 --   E R
+comm_small_day     --      --    24:00:00   --   21 529 --   E R
+comm_gpu_week      --      --    168:00:0   --    8  15 --   E R
+comm_xl_week       --      --    168:00:0   --    4   4 --   E R
+jaspeir            --      --       --      --    0   0 --   E R
+jbmertz            --      --       --      --   19   1 --   E R
+vyakkerman         --      --       --      --    1   0 --   E R
+bvpopp             --      --       --      --    0   0 --   E R
+spdifazio          --      --       --      --    0   0 --   E R
+sbs0016            --      --       --      --    0   0 --   E R
+pmm0026            --      --       --      --    3   0 --   E R
+admin              --      --       --      --    0   0 --   E R
+debug              --      --    01:00:00   --    0   0 --   E R
+aei0001            --      --       --      --    0   0 --   E R
+comm_gpu_inter     --      --    04:00:00   --    0   0 --   E R
+phase1             --      --       --      --    0   0 --   E R
+zbetienne          --      --       --      --    0   0 --   E R
+comm_med_week      --      --    168:00:0   --    5   1 --   E R
+comm_med_day       --      --    24:00:00   --    0   1 --   E R
+mamclaughlin       --      --       --      --    1   0 --   E R
+zbetienne_small    --      --       --      --    0   0 --   E R
+zbetienne_large    --      --       --      --    0   0 --   E R
+alromero           --      --       --      --    8 287 --   E R
+tdmusho            --      --       --      --    0   0 --   E R
+cedumitrescu       --      --       --      --    0   0 --   E R
+cfb0001            --      --       --      --    0   0 --   E R
+chemdept           --      --       --      --    0   0 --   E R
+chemdept-gpu       --      --       --      --    0   0 --   E R
+be_gpu             --      --       --      --    0   0 --   E R
+ngarapat           --      --       --      --    0   0 --   E R
+                                               ----- -----
+                                                 113  1176
+~~~
+{: .output}
+
+The column on the left is the name of each queue and the other most important column is the walltime. Now, lots of these queues are owned by research groups and therefore you won't have access to (i.e., jbmertz is Blake Mertz's queue that he can dictate who can use). However, every user of the cluster has access to any queue that begins with `comm`, short for community; the names give a little description of what's unique to them. `comm_small_week` gives you access to the smallest ammount of RAM a node has and will let you run for a week. Unless you're crashing due to memory issues, you should only use the `comm_small_week`, `comm_small_day`, and `standby` queues as communnity queues based on how much walltime you need as well as the `chemdept` queue. 
+
+~~~
+server: trcis002.hpc.wvu.edu
+Queue            Memory CPU Time Walltime Node  Run Que Lm  State
+---------------- ------ -------- -------- ----  --- --- --  -----
+standby            --      --    04:00:00   --   15 136 --   E R
+comm_small_week    --      --    168:00:0   --   28 202 --   E R
+comm_small_day     --      --    24:00:00   --   21 529 --   E R
+chemdept           --      --       --      --    0   0 --   E R
+~~~
+{: .output}
+
+The HPC has a system set up to fairly distribute time among users so even though there's 202 jobs in queue for the `comm_small_week` queue, if you haven't run a job yet this week, you will effectively hop the line and your job will run before others who have used the community queues. Also, nodes are allocated to jobs based on how much walltime they're asking to use: ask for less walltime and your job will have a better chance to start sooner. Now, a guaranteed way to start your job is by submitting to a non-community queue that has no jobs in queue such as the chemdept queue. You just need to also have access to the queue to take advantage. However, as soon as the chemistry department's nodes are done on whatever job they were assigned in the mean time, they will start work on your job. 
+
+
 
 ## Checking jobs, benchmarking, and output files
 
