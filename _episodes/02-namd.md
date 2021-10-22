@@ -229,16 +229,13 @@ Execute another `nano pbs.sh` to get back into your pbs script.
 
 
 # Load the necessary modules to run namd
-module load lang/intel/2018 libs/fftw/3.3.9_intel18 parallel/openmpi/3.1.4_intel18_tm
+module load atomistic/namd/NAMD_Git-2021-10-06-ofi-smp
 
 # Move to the directory you submitted the job from
 cd $PBS_O_WORKDIR              
 
-# Pathway to the namd2 code
-MD_NAMD=/scratch/jbmertz/binaries/NAMD_2.14_Source/Linux-x86_64-icc-smp/
-
 # actual call to run namd
-mpirun --map-by ppr:2:node ${MD_NAMD}namd2 +setcpuaffinity +ppn$(($PBS_NUM_PPN/2-1)) ubq_wb_eq.conf > ubq_wb_eq.log
+charmrun ++local +p40 namd2 ubq_wb_eq.conf ++ppn4 +setcpuaffinity > ubq_wb_eq.log
 ~~~
 {: .language-bash}
 
@@ -251,7 +248,7 @@ $ module avail
 
 This outputs every piece of software installed on the nodes on Thorny Flat; you can make use of any of these languages/codes if you'd like. For running NAMD, the modules already specified in the pbs script are good. 
 
-Next is a command you have already used `cd` to switch directories to where you submit the job; that is what the `$PBS_O_WORKDIR` stands for. The following line is making a variable to where Blake compiled this version of NAMD. Finally you have the call to run NAMD; its much longer than running it locally, however, you only need to concern yourself with the .conf and .log files at the end of the line. 
+Next is a command you have already used `cd` to switch directories to where you submit the job; that is what the `$PBS_O_WORKDIR` stands for. Finally you have the call to run NAMD; its much longer than running it locally, however, you only need to concern yourself with the .conf and .log files. To change the number of nodes, you will have to adjust the `+p40` to reflect the number of cores to be used.
 
 With all the parameters set, `Ctrl-X` then `Enter` to save the pbs script, and you can submit your job by executing:
 
