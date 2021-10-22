@@ -282,7 +282,50 @@ Job ID                  Username    Queue    Jobname          SessID  NDS   TSK 
 This gives us lots of useful information about the job you submitted. You can see the parameters you set in the pbs including the job name (Jobname), queue (Queue), number of nodes (NDS), and walltime (Req'd Time) as well as the status of the job (S) and how long it has been running (Elap Time). There are several different statuses your job can have but most common are "in queue" (Q), "running" (R), and "canceled/completed" (C). 
 
 ### Benchmarking simulations
+A section of the NAMD .log file (ubq_wb_eq.log for your job here) returns benchmarking information about the system you're running; this is an estimation of how fast your job is running how you have submitted it. You can access it by executing:
+
+~~~
+$ grep Benchmark ubq_wb_eq.log
+~~~
+{: .language-bash}
+
+~~~
+Info: Benchmark time: 38 CPUs 0.00319642 s/step 0.0184978 days/ns 2025.13 MB memory
+Info: Benchmark time: 38 CPUs 0.00319819 s/step 0.018508 days/ns 2025.13 MB memory
+Info: Benchmark time: 38 CPUs 0.00224249 s/step 0.0129774 days/ns 2025.13 MB memory
+Info: Benchmark time: 38 CPUs 0.00239816 s/step 0.0138783 days/ns 2025.13 MB memory
+Info: Benchmark time: 38 CPUs 0.00244654 s/step 0.0141582 days/ns 2025.13 MB memory
+Info: Benchmark time: 38 CPUs 0.00373922 s/step 0.021639 days/ns 2025.13 MB memory
+~~~
+{: .output}
+
+Conventionally, people use nanoseconds (ns) per day to estimate the best efficiency; you can calculate ns/day by inverting the days/ns column there. For instance, the output above claims you will have 60.20548131 ns/day after averaging those outputs.
+
+To actually produce a curve for benchmarking, you would need to run your job with different numbers of nodes (usually 1, 2, 4, and 8). The plot below is an example of a typical benchmarking curve:
+
+![A typical benchmarking plot in ns/day](../fig/bench_scaling.png)
+
+The red line represents perfect scaling based on the simulation using only one node. From there you can see that the actual number of ns/day achieved by the cluster is less than perfect; this is inherent in how the computer functions. This can be plotted another way by looking at how close the simulation is to achieving perfect scaling:
+
+![Plot of scaling efficieny](../fig/bench_eff.png)
+
+Now, with efficieny on the y-axis, perfect scaling becomes a horizontal line at 100% and you can see how well each number of nodes is performing. Generally, you want ~70% efficieny so you could use 4 nodes in this little example.
+
+### Output files
+
+Run another `qstat -u ncf0003`, and your job is probably done! There are several files created (not just by NAMD) when running a job. Run `ls` and you should see two files ending in a long string of numbers.
+
+~~~
+example-output                                            ubq_wb_eq.conf   ubq_wb_eq.coor.BAK  ubq_wb_eq.e569149  ubq_wb_eq.restart.coor      ubq_wb_eq.restart.vel.old  ubq_wb_eq.vel      ubq_wb_eq.xsc.BAK
+FFTW_NAMD_2.14_Linux-x86_64-MPI-smp-openmpi-tf_FFTW3.txt  ubq_wb_eq.conf~  ubq_wb_eq.dcd       ubq_wb_eq.log      ubq_wb_eq.restart.coor.old  ubq_wb_eq.restart.xsc      ubq_wb_eq.vel.BAK  ubq_wb_eq.xst
+pbs.sh                                                    ubq_wb_eq.coor   ubq_wb_eq.dcd.BAK   ubq_wb_eq.o569149  ubq_wb_eq.restart.vel       ubq_wb_eq.restart.xsc.old  ubq_wb_eq.xsc      ubq_wb_eq.xst.BAK
+~~~
+{: .output}
+
+Here, they are `ubq_wb_eq.e569149` and `ubq_wb_eq.o569149`. These files are the error and output files, respectively, produced by Thorny flat when running your job. Any output produced by your code will go in the output file and same for the error file. These are an excellent first place to look when diagnosing a problem with running on the cluster as they will catch anything that goes wrong with running on the cluster. If you're however having problems with running NAMD, that will be captured by the NAMD log file (ubq_wb_eq.log for this job) and those should be diagnosed as you would any other simulation.
+
 ## Visualizing and quick analysis of the trajectory
 
+ 
 
 {% include links.md %}
