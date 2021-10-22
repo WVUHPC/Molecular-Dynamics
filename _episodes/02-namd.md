@@ -331,7 +331,7 @@ Now that your simultion should be done (check by executing `qstat -u ncf0003`), 
 
 Once the transfer is complete, you can visualize and analyze your trajectory using a tool like VMD again. First, load `ubq_wb.psf` in to VMD followed by `ubq_qb_eq.dcd` to visualize your trajectory. Here's what the final frame could look like:
 
-![Final frame of the trajectory](../fig/namd_final.png)
+![Final frame of the trajectory](../fig/final_namd.png)
 
 A quick simple bit of analysis could be an RMSD (root-mean-squared deviation) of your system from the initial frame. This will give you a general idea of how much ypur structure changed over the course of the simulation. To do this, navigate to the RMSD Trajectory Tool by going through Extension>Analysis>RMSD Trajectory Tool in the main VMD window. This should open a window similar to the one below:
 
