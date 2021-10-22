@@ -325,6 +325,12 @@ pbs.sh                                                    ubq_wb_eq.coor   ubq_w
 Here, they are `ubq_wb_eq.e569149` and `ubq_wb_eq.o569149`. These files are the error and output files, respectively, produced by Thorny flat when running your job. Any output produced by your code will go in the output file and same for the error file. These are an excellent first place to look when diagnosing a problem with running on the cluster as they will catch anything that goes wrong with running on the cluster. If you're however having problems with running NAMD, that will be captured by the NAMD log file (ubq_wb_eq.log for this job) and those should be diagnosed as you would any other simulation.
 
 ## Visualizing and quick analysis of the trajectory
+Now that your simultion should be done (check by executing `qstat -u ncf0003`), you should transfer the files back to your computer with Globus, this time clicking the transfer button on the right side to send it to your computer. 
+
+Once the transfer is complete, you can visualize and analyze your trajectory using a tool like VMD again. First, load `ubq_wb.psf` in to VMD followed by `ubq_qb_eq.dcd` to visualize your trajectory. Here's what the final frame could look like:
+
+![Final frame of the trajectory](../fig/namd_final.png)
+
 
  
 
