@@ -331,7 +331,14 @@ Once the transfer is complete, you can visualize and analyze your trajectory usi
 
 ![Final frame of the trajectory](../fig/namd_final.png)
 
+A quick simple bit of analysis could be an RMSD (root-mean-squared deviation) of your system from the initial frame. This will give you a general idea of how much ypur structure changed over the course of the simulation. To do this, navigate to the RMSD Trajectory Tool by going through Extension>Analysis>RMSD Trajectory Tool in the main VMD window. This should open a window similar to the one below:
 
+![RMSD trajectory tool](../fig/rmsd_tool.png)
+
+Select "Trace" under "Selection Modifiers" and "Plot" under the "Trajectory" heading. Press the "RMSD" button and, it should produce a plot similar to below: 
  
+![Plot of the RMSD from the starting position](../fig/rmsd_plot.png)
+
+
 
 {% include links.md %}
