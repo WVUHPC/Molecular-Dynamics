@@ -8,5 +8,6 @@ Additionally, any software that you are interested in running on the cluster wou
 
 AMBER requires a separate liscence to download and use their software not on the cluster.
 
-Each lesson will also have assciated tutorial files, the details of which will be given in the particular lesson.
+Each lesson will also have assciated tutorial files that can be downloaded [here](https://github.com/krb0073/MD_workshop_2021).
+
 {% include links.md %}
