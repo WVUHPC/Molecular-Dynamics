@@ -142,7 +142,10 @@ mpirun --map-by ppr:2:node ${MD_NAMD}namd2 +setcpuaffinity +ppn$(($PBS_NUM_PPN/2
 
 The top block of block of commands that begin with `#PBS` are specifying how you'd like to run your job on the cluster; you can see a brief description of what they do later in each line. Lets skip the `-q` line for now and talk about the rest of the `#PBS` lines. The `-m` and `-M` lines are about emailing you confirmation of different things happening to your job; they can be omitted if you would not like to be emailed. `-N` specifies a name for your job; it will appear when you check your job later on to see its progress. There are two lines of `-l` that inform the HPC how many compute nodes you need and for how long; these can be restricted by the queue you are trying to use in the first line.
 
-#### Queues
+Exit `nano` for now by pressing `Ctrl-X`, then `Enter` to save the script.  
+
+
+### Queues
 
 There are severa different queues on the HPC and their names aren't misnomers; they are lines that your job will wait in for computing time. It can be a little bit of a balancing act to determine which queue will let you use enough resources for enough time while not having to wait too long. First, to see the queues of Thorny Flat, execute:
 
@@ -206,8 +209,57 @@ chemdept           --      --       --      --    0   0 --   E R
 
 The HPC has a system set up to fairly distribute time among users so even though there's 202 jobs in queue for the `comm_small_week` queue, if you haven't run a job yet this week, you will effectively hop the line and your job will run before others who have used the community queues. Also, nodes are allocated to jobs based on how much walltime they're asking to use: ask for less walltime and your job will have a better chance to start sooner. Now, a guaranteed way to start your job is by submitting to a non-community queue that has no jobs in queue such as the chemdept queue. You just need to also have access to the queue to take advantage. However, as soon as the chemistry department's nodes are done on whatever job they were assigned in the mean time, they will start work on your job. 
 
+Getting back to your pbs script, you are looking to run on the `standby` queue since the simulation you're running is not long, and for the sake of the workshop, you want it to start quickly. 
+
+### The rest of the pbs
+
+~~~
+#!/bin/bash
+#PBS -q standby                # queue you're submitting to
+#PBS -m ae                     # sends an email when a job ends or has an error
+#PBS -M ncf0003@mix.wvu.edu    # your email
+#PBS -N ubq_wb_eq              # name of your job; use whatever you'll recognize
+#PBS -l nodes=1:ppn=40         # resources being requested; change "node=" to request more nodes
+#PBS -l walltime=10:00         # this dictates how long your job can run on the cluster; 7:00:00:00 would be 7 days
 
 
+# Load the necessary modules to run namd
+module load lang/intel/2018 libs/fftw/3.3.9_intel18 parallel/openmpi/3.1.4_intel18_tm
+
+# Move to the directory you submitted the job from
+cd $PBS_O_WORKDIR              
+
+# Pathway to the namd2 code
+MD_NAMD=/scratch/jbmertz/binaries/NAMD_2.14_Source/Linux-x86_64-icc-smp/
+
+# actual call to run namd
+mpirun --map-by ppr:2:node ${MD_NAMD}namd2 +setcpuaffinity +ppn$(($PBS_NUM_PPN/2-1)) ubq_wb_eq.conf > ubq_wb_eq.log
+~~~
+{: .language-bash}
+
+Beynd the `#PBS` lines, there is a line loading modules that are needed to run namd. In this particular situation, the modules will always be the same, however, when using other software on the HPC, there can be many options for different software packages. To view all the modules on the HPC, execute:
+
+~~~
+$ module avail
+~~~
+{: .language-bash}
+
+~~~
+----------------------------------------------------------------------------------------- /usr/share/Modules/modulefiles -----------------------------------------------------------------------------------------
+dot         module-git  module-info modules     null        use.own
+------------------------------------------------------------------------------------------- /shared/modulefiles/tier0 --------------------------------------------------------------------------------------------
+benchmarks/hpl/2.3_gcc111_ompi411        lang/python/intelpython_2.7.14           libs/hdf5/1.10.5_intel19                 libs/netcdf/4.8.1_intel21_impi21         parallel/hwloc/1.10.1_intel18
+benchmarks/hpl/2.3_gcc48_ompi216         lang/python/intelpython_2.7.16           libs/hdf5/1.10.5_intel19_impi19          libs/netcdf/fortran-4.5.3_gcc111         parallel/hwloc/1.11.13_gcc82
+benchmarks/hpl/2.3_gcc48_ompi411         lang/python/intelpython3_2019.5          libs/hdf5/1.10.7_gcc48                   libs/netcdf/fortran-4.5.3_gcc48          parallel/hwloc/2.0.3_gcc82
+benchmarks/hpl/2.3_gcc82_ompi405         lang/python/intelpython3_2020.2          libs/hdf5/1.10.7_gcc82                   libs/netcdf/fortran-4.5.3_gcc82          parallel/hwloc/2.0.3_intel18
+benchmarks/hpl/2.3_gcc93_mpic341         lang/python/intelpython_3.6.3            libs/hdf5/1.10.7_gcc93                   libs/netcdf/fortran-4.5.3_gcc82_ompi405  parallel/hwloc/2.2.0_gcc82
+benchmarks/hpl/2.3_gcc93_mpic341_CN      lang/python/intelpython_3.6.9            libs/hdf5/1.12.0_gcc111                  libs/netcdf/fortran-4.5.3_gcc93          parallel/hwloc/2.2.0_gcc93
+benchmarks/hpl/2.3_gcc93_ompi316         lang/python/pypy2.7-v7.3.2-linux64       libs/hdf5/1.12.0_gcc82                   libs/netcdf/fortran-4.5.3_gcc93_mpic341  parallel/hwloc/2.5.0_gcc111
+.
+.
+.
+~~~
+{: .output}
 ## Checking jobs, benchmarking, and output files
 
 ## Visualizing and quick analysis of the trajectory
