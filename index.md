@@ -13,7 +13,7 @@ In the lessons, there is an introduction to the concept of MD simulation, follow
 
 > ## Prerequisites
 > 
-> There are no prerequisites for this course, however it will be very beneficial to go through the tutorials of the engine you're using: [NAMD}(http://www.ks.uiuc.edu/Training/Tutorials/#namd), [GROMACS](), and [AMBER]().
+> There are no prerequisites for this course, however it will be very beneficial to go through the tutorials of the engine you're using: [NAMD](http://www.ks.uiuc.edu/Training/Tutorials/#namd), [GROMACS](), and [AMBER]().
 > 
 {: .prereq}
 
