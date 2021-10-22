@@ -211,7 +211,10 @@ The HPC has a system set up to fairly distribute time among users so even though
 
 Getting back to your pbs script, you are looking to run on the `standby` queue since the simulation you're running is not long, and for the sake of the workshop, you want it to start quickly. 
 
+
 ### The rest of the pbs
+
+Execute another `nano pbs.sh` to get back into your pbs script. 
 
 ~~~
 #!/bin/bash
@@ -244,24 +247,41 @@ $ module avail
 ~~~
 {: .language-bash}
 
+This outputs every piece of software installed on the nodes on Thorny Flat; you can make use of any of these languages/codes if you'd like. For running NAMD, the modules already specified in the pbs script are good. 
+
+Next is a command you have already used `cd` to switch directories to where you submit the job; that is what the `$PBS_O_WORKDIR` stands for. The following line is making a variable to where Blake compiled this version of NAMD. Finally you have the call to run NAMD; its much longer than running it locally, however, you only need to concern yourself with the .conf and .log files at the end of the line. 
+
+With all the parameters set, `Ctrl-X` then `Enter` to save the pbs script, and you can submit your job by executing:
+
 ~~~
------------------------------------------------------------------------------------------ /usr/share/Modules/modulefiles -----------------------------------------------------------------------------------------
-dot         module-git  module-info modules     null        use.own
-------------------------------------------------------------------------------------------- /shared/modulefiles/tier0 --------------------------------------------------------------------------------------------
-benchmarks/hpl/2.3_gcc111_ompi411        lang/python/intelpython_2.7.14           libs/hdf5/1.10.5_intel19                 libs/netcdf/4.8.1_intel21_impi21         parallel/hwloc/1.10.1_intel18
-benchmarks/hpl/2.3_gcc48_ompi216         lang/python/intelpython_2.7.16           libs/hdf5/1.10.5_intel19_impi19          libs/netcdf/fortran-4.5.3_gcc111         parallel/hwloc/1.11.13_gcc82
-benchmarks/hpl/2.3_gcc48_ompi411         lang/python/intelpython3_2019.5          libs/hdf5/1.10.7_gcc48                   libs/netcdf/fortran-4.5.3_gcc48          parallel/hwloc/2.0.3_gcc82
-benchmarks/hpl/2.3_gcc82_ompi405         lang/python/intelpython3_2020.2          libs/hdf5/1.10.7_gcc82                   libs/netcdf/fortran-4.5.3_gcc82          parallel/hwloc/2.0.3_intel18
-benchmarks/hpl/2.3_gcc93_mpic341         lang/python/intelpython_3.6.3            libs/hdf5/1.10.7_gcc93                   libs/netcdf/fortran-4.5.3_gcc82_ompi405  parallel/hwloc/2.2.0_gcc82
-benchmarks/hpl/2.3_gcc93_mpic341_CN      lang/python/intelpython_3.6.9            libs/hdf5/1.12.0_gcc111                  libs/netcdf/fortran-4.5.3_gcc93          parallel/hwloc/2.2.0_gcc93
-benchmarks/hpl/2.3_gcc93_ompi316         lang/python/pypy2.7-v7.3.2-linux64       libs/hdf5/1.12.0_gcc82                   libs/netcdf/fortran-4.5.3_gcc93_mpic341  parallel/hwloc/2.5.0_gcc111
-.
-.
-.
+$ qsub pbs.sh
 ~~~
-{: .output}
+{: .language-bash}
+
+This tells Thorny Flat that you'd like to start waiting in line for your job to run.
+
 ## Checking jobs, benchmarking, and output files
 
+Now that you have a job submitted (and potentially already running), you can execute the following to check on your submitted jobs:
+
+~~~
+$ qstat -u ncf0003
+~~~
+{: .language-bash}
+
+~~~
+trcis002.hpc.wvu.edu: 
+                                                                                  Req'd       Req'd       Elap
+Job ID                  Username    Queue    Jobname          SessID  NDS   TSK   Memory      Time    S   Time
+----------------------- ----------- -------- ---------------- ------ ----- ------ --------- --------- - ---------
+569147.trcis002.hpc.wv  ncf0003     standby  ubq_wb_eq        208468     1     40       --   00:10:00 R  00:00:01
+
+~~~
+{ : .output}
+
+This gives us lots of useful information about the job you submitted. You can see the parameters you set in the pbs including the job name (Jobname), queue (Queue), number of nodes (NDS), and walltime (Req'd Time) as well as the status of the job (S) and how long it has been running (Elap Time). There are several different statuses your job can have but most common are "in queue" (Q), "running" (R), and "canceled/completed" (C). 
+
+### Benchmarking simulations
 ## Visualizing and quick analysis of the trajectory
 
 
