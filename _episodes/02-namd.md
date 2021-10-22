@@ -277,7 +277,7 @@ Job ID                  Username    Queue    Jobname          SessID  NDS   TSK 
 569147.trcis002.hpc.wv  ncf0003     standby  ubq_wb_eq        208468     1     40       --   00:10:00 R  00:00:01
 
 ~~~
-{ : .output}
+{: .output}
 
 This gives us lots of useful information about the job you submitted. You can see the parameters you set in the pbs including the job name (Jobname), queue (Queue), number of nodes (NDS), and walltime (Req'd Time) as well as the status of the job (S) and how long it has been running (Elap Time). There are several different statuses your job can have but most common are "in queue" (Q), "running" (R), and "canceled/completed" (C). 
 
