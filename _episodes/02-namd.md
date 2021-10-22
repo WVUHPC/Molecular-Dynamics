@@ -1,6 +1,6 @@
 ---
 title: "Using Nanoscale Molecular Dynamics (NAMD) on WVU HPC resources"
-teaching: 0
+teaching: 45
 exercises: 0
 questions:
 - "How do I transfer my files to the HPC?"
@@ -12,18 +12,20 @@ objectives:
 - "Learn how to submit a job"
 - "Learn how to do some quick analysis on a simulation"
 keypoints:
-- "First key point. Brief Answer to questions. (FIXME)"
+- "Globus Connect is the best way to transfer files to the HPC."
+- "Use a pbs script to submit jobs to the cluster."
+- "Perform benchmarking to get the most out of your resources."
 ---
+
+This uses some of the tutorial files from the [NAMD tutorial](http://www.ks.uiuc.edu/Training/Tutorials/namd-index.html). This takes you through running "1.5 Ubiquitin in a Water Box" on Thorny Flat. The simulation for this step was extended to 25,000 steps to make some more sense for the HPC.
 
 ## Visualizing the system
 
-In the NAMD tutorial, you are instructed on creating a system of ubiquitin in water to simulate. For brevity, we will use the pregenerated files in the `1-1-build/example-output/` directory. Copy `ubq_wb.psf` and `ubq_wb.pdb` to the `common` directory. 
-
-Open VMD and load `ubq_wb.psf` and `ubq_wb.pdb` by going to File>New Molecule. You should see something similar to the image below:
+Open VMD and load `ubq_wb.psf` and `ubq_wb.pdb` from the `common` direcotry by going to File>New Molecule. You should see something similar to the image below:
 
 ![A figure showing the initial coordinates of ubiqitin in a water box.](../fig/starting_namd.png)
 
-I changed the representation for the protein to New Cartoon so that it is more visible.
+The representation for the protein is set to Ribbons for visibility sake.
 
 In the `1-3-box` directory, there is a NAMD configuration file, `ubq_wb_eq.conf`, that is set to run an equilibration of ubiquitin in water. This is the .conf that we will be running on Thorny Flat.
 
